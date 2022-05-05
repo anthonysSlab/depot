@@ -8,11 +8,12 @@ namespace Depot
     public class Warning : ModuleBase<SocketCommandContext>
     {
         [RequireUserPermission(GuildPermission.BanMembers)]
-        [Command("badboi")]
+        [Command("warn")]
         public async Task Wrn(IUser user, string arg)
         {
+            IGuildUser guser = Context.Guild.GetUser(user.Id);
+
             if (user.IsBot) return;
-            if (user.Id != 627015977233678336) return;
             Badboi badboi = Badbois.Ins.GetOrAdd(user.Id);
             badboi.Sacredtexts.Add(new(DateTime.Now, arg));
             Badbois.Ins.Save();
@@ -20,17 +21,27 @@ namespace Depot
 
             switch (badboi.Sacredtexts.Count)
             {
-                case 3:
+                case 1:
                     {
-                        await Context.Guild.AddBanAsync(user);
-                        await Task.Delay(5000);
-                        await Context.Guild.RemoveBanAsync(user);
+                        await guser.SetTimeOutAsync(TimeSpan.FromMinutes(10));
                     }
                     break;
 
-                case 5:
+                case 2:
                     {
-                        await Context.Guild.AddBanAsync(user);
+                        await guser.SetTimeOutAsync(TimeSpan.FromHours(1));
+                    }
+                    break;
+
+                case 3:
+                    {
+                        await guser.KickAsync();
+                    }
+                    break;
+
+                case 4:
+                    {
+                        await guser.BanAsync();
                     }
                     break;
             }
