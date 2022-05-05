@@ -28,7 +28,9 @@ replies to any message sent by MEE6 with "FUCK YE BOT!"
 
 Dad jokes: the pot will reply to any message in chat that contains "I'm __" with "hello __, I'm pot"
 
-!say [string]: makes the pot say whatever string you input and then delete your message (for now only accessible to me) 
+!serenademe [string]: sets the pot's status to "playing [string]" (requires the ManageWebhooks Guild permission)
+
+!say [string]: makes the pot say whatever string you input and then delete your message (requires the ManageMessages Guild permission) 
   
 !uwuify [string]: makes ffe bot uwuify any stwing ffat you input, and dewete youw message (fe wast pawt onwy accessibwe to me)
   
@@ -36,9 +38,8 @@ Dad jokes: the pot will reply to any message in chat that contains "I'm __" with
 Max allowed amount is 15 and the only accepted amounts of sides are 2,4,6,8,10,12,20,100
 after a successful roll the bot will return all of the rolls and the total
   
-!warn [userId] [reason]: (not finished :/)
+!badboi [userId] [reason]: (not finished :/)
 
 # TODO List
--make comands like !say and !uwuify work with server permissions
 -finish the !warn command
--add auto relies
+-add more auto replies
