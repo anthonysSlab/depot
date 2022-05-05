@@ -1,7 +1,4 @@
-﻿using FluentAssertions.Common;
-using Microsoft.Extensions.Options;
-
-namespace Depot.Enitities
+﻿namespace Depot.Enitities
 {
     public class Config
     {
