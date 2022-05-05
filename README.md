@@ -1,7 +1,7 @@
 # DePot?
 Pot is a discord bot that I (slab) created; originally just for rolling dice, but over time we've added more features...   
 The whole project is still extremally buggy and unfinished, but we're getting closer than ever to finishing it.  
-If any of ya hav eany funny ideas for auto replies, go ahead and edit the replies.json file   
+If any of ya have any funny ideas for auto replies, go ahead and edit the replies.json file   
 
 # Pot Team
 -Anthony slab (owner, developer)  
