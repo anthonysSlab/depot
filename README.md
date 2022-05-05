@@ -42,5 +42,5 @@ after a successful roll the bot will return all of the rolls and the total
 !warns [userId]: displays all of the warns that the user has with the exact date of their creation and reason
 
 # TODO List
--finish the !warn command  
 -add more auto replies  
+-add an option to remove warns   
