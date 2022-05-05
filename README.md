@@ -3,6 +3,8 @@ Pot is a discord bot that I (slab) created; originally just for rolling dice, bu
 
 The whole project is still extremally buggy and unfinished, but we're getting closer than ever to finishing it.
 
+If any of ya hav eany funny ideas for auto replies, go ahead and edit the replies.json file
+
 # Pot Team
 -Anthony slab (owner, developer)
 
@@ -35,3 +37,8 @@ Max allowed amount is 15 and the only accepted amounts of sides are 2,4,6,8,10,1
 after a successful roll the bot will return all of the rolls and the total
   
 !warn [userId] [reason]: (not finished :/)
+
+# TODO List
+-make comands like !say and !uwuify work with server permissions
+-finish the !warn command
+-add auto relies
