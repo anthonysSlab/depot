@@ -18,15 +18,8 @@ namespace Depot.Modules
         {
             string text = string.Join(" ", game);
 
-            if (Context.User.Id == 627015977233678336)
-            {
-                await Context.Client.SetGameAsync(text);
-                await ReplyAsync($"now pwaying: {text}");
-            }
-            else
-            {
-                await ReplyAsync("no");
-            }
+            await Context.Client.SetGameAsync(text);
+            await ReplyAsync($"now pwaying: {text}");
         }
     }
 }
