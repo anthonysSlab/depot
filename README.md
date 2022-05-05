@@ -1,30 +1,25 @@
 # DePot?
-Pot is a discord bot that I (slab) created; originally just for rolling dice, but over time we've added more features... 
-
-The whole project is still extremally buggy and unfinished, but we're getting closer than ever to finishing it.
-
-If any of ya hav eany funny ideas for auto replies, go ahead and edit the replies.json file
+Pot is a discord bot that I (slab) created; originally just for rolling dice, but over time we've added more features...   
+The whole project is still extremally buggy and unfinished, but we're getting closer than ever to finishing it.  
+If any of ya hav eany funny ideas for auto replies, go ahead and edit the replies.json file   
 
 # Pot Team
--Anthony slab (owner, developer)
-
--Juna Meinhold (developer, the smart guy)
-
--Mutant031101 (test object)
+-Anthony slab (owner, developer)  
+-Juna Meinhold (developer, the smart guy)  
+-Mutant031101 (test object)  
 
 # Support
-If you like this bot and would want to see it develop, consider supporting me on patreon:
-https://www.patreon.com/anthonyslab?fan_landing=true
+If you like this bot and would want to see it develop, consider supporting me on patreon:  
+https://www.patreon.com/anthonyslab?fan_landing=true  
 
 # Features
-[] - required
-{} - optional
+[] - required  
+{} - optional  
 
-Auto-Replies: the pot will reply with a set string to a message in chat that contains another set string;
-All of the replies are contained in the replies.json file
+Auto-Replies: the pot will reply with a set string to a message in chat that contains another set string;  
+All of the replies are contained in the replies.json file  
 
-Auto f-mee6:
-replies to any message sent by MEE6 with "FUCK YE BOT!"
+Auto f-mee6: replies to any message sent by MEE6 with "FUCK YE BOT!"
 
 Dad jokes: the pot will reply to any message in chat that contains "I'm __" with "hello __, I'm pot"
 
@@ -34,12 +29,18 @@ Dad jokes: the pot will reply to any message in chat that contains "I'm __" with
   
 !uwuify [string]: makes ffe bot uwuify any stwing ffat you input, and dewete youw message (fe wast pawt onwy accessibwe to me)
   
-!roll {int}d[int] rolls dice, the first number is the amount of dice rolled and the second is the number of sides those dice have.
-Max allowed amount is 15 and the only accepted amounts of sides are 2,4,6,8,10,12,20,100
-after a successful roll the bot will return all of the rolls and the total
+!roll {int}d[int] rolls dice, the first number is the amount of dice rolled and the second is the number of sides those dice have.  
+Max allowed amount is 15 and the only accepted amounts of sides are 2,4,6,8,10,12,20,100  
+after a successful roll the bot will return all of the rolls and the total  
   
-!badboi [userId] [reason]: (not finished :/)
+!warn [userId] [reason]: warns the user! and automatically executes an action, defferent to how many times the user was warned already. so:
+1st warn - timeout 10min,  
+2nd warn - timeout 1h,  
+3rd warn - kick from the guild,  
+4th warn - ban from the guild   
+
+!warns [userId]: displays all of the warns that the user has with the exact date of their creation and reason
 
 # TODO List
--finish the !warn command
--add more auto replies
+-finish the !warn command  
+-add more auto replies  
