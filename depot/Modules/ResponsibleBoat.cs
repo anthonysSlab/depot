@@ -1,4 +1,5 @@
 ﻿using Depot.Enitities;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
@@ -6,19 +7,13 @@ namespace Depot.Modules
 {
     public class ResponsibleBoat : ModuleBase<SocketCommandContext>
     {
+        [RequireUserPermission(GuildPermission.ManageMessages)]
         [Command("say")]
         public async Task Say(params string[] arg)
         {
             string shit = string.Join(" ", arg);
-            if (Context.User.Id == 627015977233678336) //only work me
-            {
-                await ReplyAsync(shit);
-                await Context.Message.DeleteAsync();
-            }
-            else
-            {
-                await ReplyAsync("no");
-            }
+            await ReplyAsync(shit);
+            await Context.Message.DeleteAsync();
         }
 
         [Command("uwuify")]

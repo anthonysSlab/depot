@@ -12,7 +12,8 @@ namespace Depot.Modules
 {
     public class RubixPummel : ModuleBase<SocketCommandContext>
     {
-        [Command("gam")]
+        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [Command("serenademe")]
         public async Task SetGam(params string[] game)
         {
             string text = string.Join(" ", game);

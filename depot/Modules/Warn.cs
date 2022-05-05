@@ -7,7 +7,8 @@ namespace Depot
 {
     public class Warning : ModuleBase<SocketCommandContext>
     {
-        [Command("warn")]
+        [RequireUserPermission(GuildPermission.BanMembers)]
+        [Command("badboi")]
         public async Task Wrn(IUser user, string arg)
         {
             if (user.IsBot) return;
