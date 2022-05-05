@@ -10,7 +10,7 @@ If any of ya hav eany funny ideas for auto replies, go ahead and edit the replie
 
 -Juna Meinhold (developer, the smart guy)
 
--Mutant031101 (tester)
+-Mutant031101 (test object)
 
 # Support
 If you like this bot and would want to see it develop, consider supporting me on patreon:
