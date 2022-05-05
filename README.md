@@ -33,7 +33,7 @@ Dad jokes: the pot will reply to any message in chat that contains "I'm __" with
 Max allowed amount is 15 and the only accepted amounts of sides are 2,4,6,8,10,12,20,100  
 after a successful roll the bot will return all of the rolls and the total  
   
-!warn [userId] [reason]: warns the user! and automatically executes an action, defferent to how many times the user was warned already. so:
+!warn [userId] [reason]: warns the user! and automatically executes an action, defferent to how many times the user was warned already. so:  
 1st warn - timeout 10min,  
 2nd warn - timeout 1h,  
 3rd warn - kick from the guild,  
