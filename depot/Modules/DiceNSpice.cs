@@ -21,26 +21,25 @@ namespace Depot.Modules
             if (args.Length != 2) return;
             string value = args[1];
             int index = Array.IndexOf(allowedDice, value);
-            if (!int.TryParse(args[0], out int amount)) return; if (!int.TryParse(args[1], out int sides)) return; //turn to int
-            int sum_num = 0;
+            if (!int.TryParse(args[0], out int hownamydices)) return; if (!int.TryParse(args[1], out int sides)) return; //turn to int
+            int thegreatnum = 0;
             Random rand = new Random(); //random function
-
             if (index > -1) //only accept 2,4,6,8,10,12,100 as sides
             {
-                if (amount <= 10) //prevent more than 10 dice to be rolled at a time
+                if (hownamydices <= 10) //prevent more than 10 dice to be rolled at a time
                 {
                     StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < amount; i++)
+                    for (int i = 0; i < hownamydices; i++)
                     {
-                        int random_num = rand.Next(1, sides);
-                        sum_num += random_num;
-                        sb.Append($"\n{random_num}");
+                        int derandomnumba = rand.Next(1, sides);
+                        thegreatnum += derandomnumba;
+                        sb.Append($"\n{derandomnumba}");
                     }
                     await ReplyAsync(sb.ToString());
 
-                    if (amount > 1)
+                    if (hownamydices > 1)
                     {
-                        await ReplyAsync($"TOTAL:{sum_num}");
+                        await ReplyAsync($"TOTAL:{thegreatnum}");
                     }
                 }
                 else

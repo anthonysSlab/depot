@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using Depot.Enitities;
+using Discord.Commands;
 using Discord.WebSocket;
 
 namespace Depot.Modules

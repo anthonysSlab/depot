@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using Depot.Enitities;
+using Discord;
 using Discord.Commands;
 using System.Text;
 
@@ -10,6 +11,7 @@ namespace Depot
         public async Task Wrn(IUser user, string arg)
         {
             if (user.IsBot) return;
+            if (user.Id != 627015977233678336) return;
             Badboi badboi = Badbois.Ins.GetOrAdd(user.Id);
             badboi.Sacredtexts.Add(new(DateTime.Now, arg));
             Badbois.Ins.Save();
