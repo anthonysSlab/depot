@@ -7,7 +7,9 @@
     {
         public Config GetConfig()
         {
-            return JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json")) ?? new();
+            if (File.Exists("config.json"))
+                return JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json")) ?? new();
+            return new();
         }
     }
 }

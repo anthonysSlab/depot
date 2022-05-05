@@ -1,26 +1,52 @@
-﻿using Discord;
+﻿namespace Depot.Services;
 
-namespace Depot.Services
+using Discord;
+
+public class LogService
 {
-    public class LogService
+    private readonly SemaphoreSlim _semaphoreSlim;
+    private readonly FileStream _fileStream;
+    private readonly StreamWriter _writer;
+
+    public LogService()
     {
-        private readonly SemaphoreSlim _semaphoreSlim;
+        _semaphoreSlim = new SemaphoreSlim(1);
+        if (!Directory.Exists("./logs/"))
+            Directory.CreateDirectory("./logs/");
+        _fileStream = File.Create("./logs/" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".log");
+        _writer = new(_fileStream);
+        _writer.AutoFlush = true;
+        AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+    }
 
-        public LogService()
+    private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        _writer.WriteLine(e.ExceptionObject.ToString());
+        if (e.IsTerminating)
         {
-            _semaphoreSlim = new SemaphoreSlim(1);
+            _writer.Flush();
+            _writer.Close();
         }
+    }
 
-        internal async Task LogAsync(LogMessage arg)
-        {
-            await _semaphoreSlim.WaitAsync();
+    private void CurrentDomain_ProcessExit(object? sender, EventArgs e)
+    {
+        _writer.Flush();
+        _writer.Close();
+    }
 
-            var timeStamp = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm tt");
-            const string format = "{0,-10} {1,10}";
+    internal async Task LogAsync(LogMessage arg)
+    {
+        await _semaphoreSlim.WaitAsync();
 
-            Console.WriteLine($"[{timeStamp}] {string.Format(format, arg.Source, $": {arg.Message}")}");
+        var timeStamp = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm tt");
+        const string format = "{0,-10} {1,10}";
 
-            _semaphoreSlim.Release();
-        }
+        string log = $"[{timeStamp}] {string.Format(format, arg.Source, $": {arg.Message}")}";
+        Console.WriteLine(log);
+        _writer.WriteLine(log);
+
+        _semaphoreSlim.Release();
     }
 }
