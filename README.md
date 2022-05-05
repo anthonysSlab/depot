@@ -8,7 +8,7 @@ If any of ya hav eany funny ideas for auto replies, go ahead and edit the replie
 # Pot Team
 -Anthony slab (owner, developer)
 
--Juna Meinhold (developed, the smart guy)
+-Juna Meinhold (developer, the smart guy)
 
 -Mutant031101 (tester)
 
