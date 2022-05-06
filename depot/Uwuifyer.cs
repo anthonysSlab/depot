@@ -1,6 +1,5 @@
 ﻿namespace Depot
 {
-    using System.IO;
     using System.Text;
     using System.Text.RegularExpressions;
 

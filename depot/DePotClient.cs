@@ -26,6 +26,7 @@
         {
             client = new DiscordSocketClient(new DiscordSocketConfig
             {
+                GatewayIntents = GatewayIntents.All,
                 AlwaysDownloadUsers = true,
                 MessageCacheSize = 50,
                 LogLevel = LogSeverity.Debug
@@ -41,14 +42,17 @@
             interactionService = new(client, new InteractionServiceConfig()
             {
                 LogLevel = LogSeverity.Debug,
-                ThrowOnError = true,
+                ThrowOnError = false,
             });
 
-            logService = new();
+            logService = new(client);
             configService = new();
             textService = new(client);
             reactionService = new(client);
             config = configService.GetConfig();
+
+            cmdService.Log += LogAsync;
+            interactionService.Log += LogAsync;
         }
 
         public async Task InitializeAsync()
@@ -88,6 +92,7 @@
                     .AddSingleton(logService)
                     .AddSingleton(textService)
                     .AddSingleton(reactionService)
+                    .AddSingleton<ModerationService>()
                     .BuildServiceProvider();
     }
 }

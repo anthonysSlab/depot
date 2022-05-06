@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depot", "depot\Depot.csproj", "{EF034A4F-53CA-4E66-B34B-992A3B91ABFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Depot", "depot\Depot.csproj", "{EF034A4F-53CA-4E66-B34B-992A3B91ABFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depot.TaskScheduler", "Depot.TaskScheduler\Depot.TaskScheduler.csproj", "{1193DCC9-4745-4E74-9AAB-D2692EEF51A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{EF034A4F-53CA-4E66-B34B-992A3B91ABFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF034A4F-53CA-4E66-B34B-992A3B91ABFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF034A4F-53CA-4E66-B34B-992A3B91ABFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1193DCC9-4745-4E74-9AAB-D2692EEF51A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1193DCC9-4745-4E74-9AAB-D2692EEF51A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1193DCC9-4745-4E74-9AAB-D2692EEF51A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1193DCC9-4745-4E74-9AAB-D2692EEF51A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

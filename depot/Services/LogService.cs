@@ -1,15 +1,18 @@
 ﻿namespace Depot.Services;
 
 using Discord;
+using Discord.WebSocket;
 
 public class LogService
 {
     private readonly SemaphoreSlim _semaphoreSlim;
     private readonly FileStream _fileStream;
     private readonly StreamWriter _writer;
+    private DiscordSocketClient client;
 
-    public LogService()
+    public LogService(DiscordSocketClient client)
     {
+        this.client = client;
         _semaphoreSlim = new SemaphoreSlim(1);
         if (!Directory.Exists("./logs/"))
             Directory.CreateDirectory("./logs/");
@@ -46,6 +49,9 @@ public class LogService
         string log = $"[{timeStamp}] {string.Format(format, arg.Source, $": {arg.Message}")}";
         Console.WriteLine(log);
         _writer.WriteLine(log);
+
+        if (arg.Source != "Gateway" && arg.Source != "Rest")
+            (client.GetChannel(972118946411053066) as ITextChannel)?.SendMessageAsync(log);
 
         _semaphoreSlim.Release();
     }
