@@ -228,7 +228,19 @@
                 sb.AppendLine($"{Context.Guild.GetUser(user.User.Id).DisplayName}, Last active:{user.LastActivity}, Warned:{user.HasActivityWarn}");
             }
 
-            await ReplyAsync(sb.ToString());
+            if (sb.Length > 2000)
+            {
+                string msg = sb.ToString();
+                int position = 0;
+                while (position < sb.Length)
+                {
+                    int len = position + 2000 > sb.Length ? sb.Length - position : 2000;
+                    await ReplyAsync(msg.Substring(position, len));
+                    position += len;
+                }
+            }
+            else
+                await ReplyAsync(sb.ToString());
         }
     }
 }
