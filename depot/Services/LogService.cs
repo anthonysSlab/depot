@@ -51,7 +51,7 @@ public class LogService
         _writer.WriteLine(log);
 
         if (arg.Source != "Gateway" && arg.Source != "Rest")
-            (client.GetChannel(972118946411053066) as ITextChannel)?.SendMessageAsync(log);
+            (client.GetChannel(972197911666503720) as ITextChannel)?.SendMessageAsync(log);
 
         _semaphoreSlim.Release();
     }

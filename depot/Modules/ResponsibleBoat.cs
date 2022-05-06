@@ -20,7 +20,7 @@ namespace Depot.Modules
         public async Task Uwuify(params string[] arg)
         {
             string uwunes = string.Join(" ", arg);
-            if (Context.User.Id == 627015977233678336) { await Context.Message.DeleteAsync(); }
+            if (Context.Guild.GetUser(Context.User.Id).GuildPermissions.ManageMessages) { await Context.Message.DeleteAsync(); }
             if (string.IsNullOrEmpty(uwunes)) { await ReplyAsync("wewy funny"); return; }
             await base.ReplyAsync(Uwuifyer.UwuifyText(uwunes));
         }

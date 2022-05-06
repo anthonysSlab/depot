@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Depot.Modules
 {
-    public class WarningModule : ModuleBase<SocketCommandContext>
+    public class BadBois : ModuleBase<SocketCommandContext>
     {
         private readonly ModerationService _service;
 
-        public WarningModule(ModerationService service)
+        public BadBois(ModerationService service)
         {
             _service = service;
         }
@@ -65,7 +65,7 @@ namespace Depot.Modules
         }
 
         [RequireUserPermission(GuildPermission.BanMembers)]
-        [Command("warn-remove")]
+        [Command("unwarn")]
         public async Task WarnRemove(IUser duser, string arg)
         {
             GuildUser? user = _service.Context.GuildUsers.FirstOrDefault(x => x.UserId == duser.Id);
@@ -82,6 +82,7 @@ namespace Depot.Modules
             await _service.Context.SaveChangesAsync();
         }
 
+        [RequireUserPermission(GuildPermission.ManageMessages)]
         [Command("warns")]
         public async Task DisplayWarns(IUser duser)
         {

@@ -11,36 +11,38 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class InactivityModule : ModuleBase<SocketCommandContext>
+    public class SacredScrolls : ModuleBase<SocketCommandContext>
     {
         private readonly ModerationService _service;
         private readonly ManualTrigger migrationTrigger;
 
-        public InactivityModule(ModerationService service)
+        public SacredScrolls(ModerationService service)
         {
             _service = service;
             migrationTrigger = new();
             _service.MigrationTask.AddTrigger(migrationTrigger);
         }
 
-        [Command("enable-inactivity-kick")]
+        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [Command("sacredscrolls")]
         public async Task Enable()
         {
             ulong id = Context.Guild.Id;
 
             if (_service.Context.Guilds.Any(x => x.Id == id))
             {
-                await ReplyAsync("already enabled!");
+                await ReplyAsync("already..?");
                 return;
             }
 
             Guild guild = new() { Id = id };
             _service.Context.Guilds.Add(guild);
             await _service.Context.SaveChangesAsync();
-            await ReplyAsync("enabled auto kicking!");
+            await ReplyAsync("will do");
         }
 
-        [Command("disable-inactivity-kick")]
+        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [Command("profanescrolls")]
         public async Task Disable()
         {
             ulong id = Context.Guild.Id;
@@ -48,22 +50,23 @@
             Guild? guild = _service.Context.Guilds.FirstOrDefault(x => x.Id == id);
             if (guild == null)
             {
-                await ReplyAsync("already disabled!");
+                await ReplyAsync("already..?");
                 return;
             }
 
             _service.Context.Guilds.Remove(guild);
             await _service.Context.SaveChangesAsync();
-            await ReplyAsync("disabled auto kicking!");
+            await ReplyAsync("will do");
         }
 
-        [Command("inactivity-ignore-role")]
+        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [Command("godmode")]
         public async Task AddIgnoreRole(string roleName)
         {
             Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
             if (guild == null)
             {
-                await ReplyAsync("auto kicking is currently disabled!");
+                await ReplyAsync("it's disabled just like yer mom, you imbecile!");
                 return;
             }
 
@@ -71,7 +74,7 @@
 
             if (drole == null)
             {
-                await ReplyAsync("role does not exist!");
+                await ReplyAsync("do I really have to tell ye how stupid ye are?");
                 return;
             }
 
@@ -79,7 +82,7 @@
 
             if (guild.IgnoredRoles.Any(r => r.Id == role.Id))
             {
-                await ReplyAsync("role is already whitelisted!");
+                await ReplyAsync("they already immune, leave em alone!");
                 return;
             }
 
@@ -97,16 +100,17 @@
 #endif
             }
 
-            await ReplyAsync($"role {drole.Mention} successfully added to the ignore list!");
+            await ReplyAsync($"role {drole.Mention} added, hope ye happy now");
         }
 
-        [Command("inactivity-unignore-role")]
+        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [Command("devilmode")]
         public async Task RemoveIgnoreRole(string roleName)
         {
             Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
             if (guild == null)
             {
-                await ReplyAsync("auto kicking is currently disabled!");
+                await ReplyAsync("it's disabled just like yer mom, you imbecile!");
                 return;
             }
 
@@ -114,7 +118,7 @@
 
             if (drole == null)
             {
-                await ReplyAsync("role does not exist!");
+                await ReplyAsync("do I really have to tell ye how stupid ye are?");
                 return;
             }
 
@@ -122,7 +126,7 @@
 
             if (role == null)
             {
-                await ReplyAsync("role is not whitelisted!");
+                await ReplyAsync("they already fucked, leave em alone!");
                 return;
             }
 
@@ -140,16 +144,17 @@
 #endif
             }
 
-            await ReplyAsync($"role {drole.Mention} successfully removed from the ignore list!");
+            await ReplyAsync($"role {drole.Mention} removed, hope ye happy now");
         }
 
-        [Command("inactivity-set-warn-duration")]
+        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [Command("markedtime")]
         public async Task SetWarnDuration(TimeSpan span)
         {
             Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
             if (guild == null)
             {
-                await ReplyAsync("auto kicking is currently disabled!");
+                await ReplyAsync("it's disabled just like yer mom, you imbecile!");
                 return;
             }
 
@@ -159,13 +164,14 @@
             await ReplyAsync($"Set warn duration to {span}");
         }
 
-        [Command("inactivity-set-kick-duration")]
+        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [Command("fuckedtime")]
         public async Task SetKickDuration(TimeSpan span)
         {
             Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
             if (guild == null)
             {
-                await ReplyAsync("auto kicking is currently disabled!");
+                await ReplyAsync("it's disabled just like yer mom, you imbecile!");
                 return;
             }
 
@@ -186,7 +192,7 @@
             else if (Context.User.Id == 627015977233678336)
             {
                 await migrationTrigger.TriggerAsync();
-                await ReplyAsync("yes dady");
+                await ReplyAsync("yes daddy");
             }
             else
             {
@@ -195,7 +201,8 @@
             }
         }
 
-        [Command("inactivity-info")]
+        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [Command("sacredinfo")]
         public async Task Info()
         {
             Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
