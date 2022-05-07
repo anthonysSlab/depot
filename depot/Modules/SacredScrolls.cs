@@ -164,7 +164,7 @@
             await ReplyAsync($"Set warn duration to {span}");
         }
 
-        [RequireUserPermission(GuildPermission.ManageWebhooks)]
+        [RequireUserPermission(GuildPermission.ManageGuild)]
         [Command("fuckedtime")]
         public async Task SetKickDuration(TimeSpan span)
         {
