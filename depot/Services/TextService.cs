@@ -37,16 +37,11 @@ public class TextService
             return "no";
         }
 
-        string dad = arg.CleanContent;
-        dad = dad.Replace("@", "");
-        dad = dad.Replace("!", "");
-        dad = dad.Replace("$", "");
-
         if (arg.Author.Id == 159985870458322944) { await arg.Channel.SendMessageAsync("FUCK YE BOT!"); return; };
         if (arg.Author.Id == 962301614172041237) return;
         if (Ragge(arg.CleanContent) != "no")
         {
-            await arg.Channel.SendMessageAsync(Ragge(dad));
+            await arg.Channel.SendMessageAsync(Ragge(arg.CleanContent));
             return;
         }
         if (arg.Author.IsBot) return;
