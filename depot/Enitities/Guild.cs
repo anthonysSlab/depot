@@ -21,6 +21,8 @@
 
         public virtual List<GuildUser> Users { get; set; } = new();
 
+        public virtual List<Role> Roles { get; set; } = new();
+
         public virtual List<Role> IgnoredRoles { get; set; } = new();
 
         public virtual List<Warning> Warnings { get; set; } = new();

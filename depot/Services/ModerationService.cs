@@ -24,6 +24,8 @@
             _client.LeftGuild += LeftGuild;
             _client.UserJoined += UserJoined;
             _client.UserLeft += UserLeft;
+            _client.RoleCreated += RoleCreated;
+            _client.RoleDeleted += RoleDeleted;
 
             scheduledTask = new(DoTasks);
             scheduledTask.AddTrigger(new TimeIntervalTrigger(TimeSpan.FromMinutes(5)));
@@ -31,24 +33,20 @@
             DoTasks().Wait();
         }
 
+        private async Task RoleDeleted(SocketRole arg)
+        {
+        }
+
+        private async Task RoleCreated(SocketRole arg)
+        {
+        }
+
         private async Task UserLeft(SocketGuild arg1, SocketUser arg2)
         {
-            Guild? guild = _context.Guilds.FirstOrDefault(x => x.Id == arg1.Id);
-            if (guild == null)
-            {
-                return;
-            }
-
-            User user = await AddOrGetUser(arg2.Id);
-            GuildUser guildUser = guild.Users.First(x => x.UserId == user.Id);
-
-            guild.Users.Remove(guildUser);
-            user.Guilds.Remove(guildUser);
+            GuildUser? guildUser = _context.GetGuildUser(arg1, arg2);
+            if (guildUser == null) return;
 
             _context.GuildUsers.Remove(guildUser);
-            _context.Guilds.Update(guild);
-            _context.Users.Update(user);
-
             await _context.SaveChangesAsync();
         }
 
@@ -330,12 +328,23 @@
         public async Task UpdateRoles(Guild guild)
         {
             SocketGuild dguild = _client.GetGuild(guild.Id);
+            HashSet<ulong> groles = guild.Roles.Select(x => x.Id).ToHashSet();
             HashSet<ulong> droles = dguild.Roles.Select(x => x.Id).ToHashSet();
+
+            foreach (IRole drole in guild.Roles)
+            {
+                if (!groles.Contains(drole.Id))
+                {
+                    Role role = new(drole.Id);
+                    guild.Roles.Add(role);
+                    _context.Roles.Add(role);
+                }
+            }
 
             List<Role> removeQueue = new();
 
             // goes through all ignores roles
-            foreach (Role role in guild.IgnoredRoles)
+            foreach (Role role in guild.Roles)
             {
                 // if the role does not exist in the guild then we enqueue it into the queue.
                 if (!droles.Contains(role.Id))
@@ -343,7 +352,7 @@
             }
 
             // removes all enqueued roles that are not longer exists.
-            guild.IgnoredRoles.RemoveAll(removeQueue);
+            guild.Roles.RemoveAll(removeQueue);
             _context.Roles.RemoveAll(removeQueue);
 
             _context.Guilds.Update(guild);
