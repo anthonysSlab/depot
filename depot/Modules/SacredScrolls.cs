@@ -5,7 +5,6 @@
     using Depot.TaskScheduler;
     using Discord;
     using Discord.Commands;
-    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Linq;
     using System.Text;
@@ -27,16 +26,15 @@
         [Command("sacredscrolls")]
         public async Task Enable()
         {
-            ulong id = Context.Guild.Id;
-
-            if (_service.Context.Guilds.Any(x => x.Id == id))
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
+            if (guild == null)
             {
-                await ReplyAsync("already..?");
+                await ReplyAsync("an error occurred, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
-            Guild guild = new() { Id = id };
-            _service.Context.Guilds.Add(guild);
+            guild.ActivityKicking = true;
+            _service.Context.Guilds.Update(guild);
             await _service.Context.SaveChangesAsync();
             await ReplyAsync("will do");
         }
@@ -45,16 +43,15 @@
         [Command("profanescrolls")]
         public async Task Disable()
         {
-            ulong id = Context.Guild.Id;
-
-            Guild? guild = _service.Context.Guilds.FirstOrDefault(x => x.Id == id);
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
             if (guild == null)
             {
-                await ReplyAsync("already..?");
+                await ReplyAsync("an error occurred, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
-            _service.Context.Guilds.Remove(guild);
+            guild.ActivityKicking = false;
+            _service.Context.Guilds.Update(guild);
             await _service.Context.SaveChangesAsync();
             await ReplyAsync("will do");
         }
@@ -63,10 +60,10 @@
         [Command("godmode")]
         public async Task AddIgnoreRole(string roleName)
         {
-            Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
             if (guild == null)
             {
-                await ReplyAsync("it's disabled just like yer mom, you imbecile!");
+                await ReplyAsync("an error occurred, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
@@ -107,10 +104,10 @@
         [Command("devilmode")]
         public async Task RemoveIgnoreRole(string roleName)
         {
-            Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
             if (guild == null)
             {
-                await ReplyAsync("it's disabled just like yer mom, you imbecile!");
+                await ReplyAsync("an error occurred, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
@@ -151,10 +148,10 @@
         [Command("markedtime")]
         public async Task SetWarnDuration(TimeSpan span)
         {
-            Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
             if (guild == null)
             {
-                await ReplyAsync("it's disabled just like yer mom, you imbecile!");
+                await ReplyAsync("an error occurred, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
@@ -168,10 +165,10 @@
         [Command("fuckedtime")]
         public async Task SetKickDuration(TimeSpan span)
         {
-            Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
             if (guild == null)
             {
-                await ReplyAsync("it's disabled just like yer mom, you imbecile!");
+                await ReplyAsync("an error occurred, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
@@ -205,10 +202,10 @@
         [Command("sacredinfo")]
         public async Task Info()
         {
-            Guild? guild = _service.Context.Guilds.Include(g => g.Users).Include(g => g.IgnoredRoles).FirstOrDefault(x => x.Id == Context.Guild.Id);
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
             if (guild == null)
             {
-                await ReplyAsync("your guild is not yet migrated, please wait a few minutes usually it takes 5min max!");
+                await ReplyAsync("an error occurred, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
@@ -228,19 +225,7 @@
                 sb.AppendLine($"{Context.Guild.GetUser(user.User.Id).DisplayName}, Last active:{user.LastActivity}, Warned:{user.HasActivityWarn}");
             }
 
-            if (sb.Length > 2000)
-            {
-                string msg = sb.ToString();
-                int position = 0;
-                while (position < sb.Length)
-                {
-                    int len = position + 2000 > sb.Length ? sb.Length - position : 2000;
-                    await ReplyAsync(msg.Substring(position, len));
-                    position += len;
-                }
-            }
-            else
-                await ReplyAsync(sb.ToString());
+            sb.ToString().SplitString(2000, async x => await ReplyAsync(x));
         }
     }
 }
