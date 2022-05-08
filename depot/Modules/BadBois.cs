@@ -19,24 +19,89 @@ namespace Depot.Modules
         [Command("warn")]
         public async Task Wrn(IUser duser, string arg)
         {
-            GuildUser? user = _service.Context.GuildUsers.FirstOrDefault(x => x.UserId == duser.Id);
-
-            if (user == null)
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
+            if (guild == null)
             {
-                await ReplyAsync("User not in database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
+                await ReplyAsync("Guild is not in the database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
-            IGuildUser guser = Context.Guild.GetUser(user.UserId);
+            Warning warning = new(duser.Id, arg, DateTime.Now);
+            guild.Warnings.Add(warning);
 
-            user.Warnings.Add(new(user, arg, DateTime.Now));
-
-            _service.Context.GuildUsers.Update(user);
+            _service.Context.Guilds.Update(guild);
             await _service.Context.SaveChangesAsync();
 
             await ReplyAsync("wawned");
 
-            switch (user.Warnings.Count)
+            int count = guild.Warnings.Count(x => x.UserId == duser.Id);
+
+            IGuildUser? guser = Context.Guild.GetUser(duser.Id);
+
+            if (guser == null)
+            {
+                await ReplyAsync("User is not on guild cannot punish");
+                return;
+            }
+
+            switch (count)
+            {
+                case 1:
+                    {
+                        await guser.SetTimeOutAsync(TimeSpan.FromMinutes(10));
+                    }
+                    break;
+
+                case 2:
+                    {
+                        await guser.SetTimeOutAsync(TimeSpan.FromHours(1));
+                    }
+                    break;
+
+                case 3:
+                    {
+                        await guser.SetTimeOutAsync(TimeSpan.FromDays(7));
+                    }
+                    break;
+
+                case 4:
+                    {
+                        await guser.BanAsync();
+                    }
+                    break;
+            }
+        }
+
+        [RequireUserPermission(GuildPermission.BanMembers)]
+        [Command("warn")]
+        public async Task Wrn(ulong id, string arg)
+        {
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
+            if (guild == null)
+            {
+                await ReplyAsync("Guild is not in the database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
+                return;
+            }
+
+            Warning warning = new(id, arg, DateTime.Now);
+            guild.Warnings.Add(warning);
+
+            _service.Context.Guilds.Update(guild);
+            await _service.Context.SaveChangesAsync();
+
+            await ReplyAsync("wawned");
+
+            int count = guild.Warnings.Count(x => x.UserId == id);
+
+            IGuildUser? guser = Context.Guild.GetUser(id);
+
+            if (guser == null)
+            {
+                await ReplyAsync("User is not on guild cannot punish");
+                return;
+            }
+
+            switch (count)
             {
                 case 1:
                     {
@@ -68,17 +133,49 @@ namespace Depot.Modules
         [Command("unwarn")]
         public async Task WarnRemove(IUser duser, string arg)
         {
-            GuildUser? user = _service.Context.GuildUsers.FirstOrDefault(x => x.UserId == duser.Id);
-
-            if (user == null)
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
+            if (guild == null)
             {
-                await ReplyAsync("User not in database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
+                await ReplyAsync("Guild is not in the database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
-            user.Warnings.Remove(user.Warnings.First(x => x.Message == arg));
+            Warning? warning = guild.Warnings.Where(x => x.UserId == duser.Id).FirstOrDefault(x => x.Message == arg);
 
-            _service.Context.GuildUsers.Update(user);
+            if (warning == null)
+            {
+                await ReplyAsync("User or warning reason not found");
+                return;
+            }
+
+            guild.Warnings.Remove(warning);
+
+            _service.Context.Guilds.Update(guild);
+            await _service.Context.SaveChangesAsync();
+        }
+
+        [RequireUserPermission(GuildPermission.BanMembers)]
+        [Command("unwarn")]
+        public async Task WarnRemove(ulong id, string arg)
+        {
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
+            if (guild == null)
+            {
+                await ReplyAsync("Guild is not in the database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
+                return;
+            }
+
+            Warning? warning = guild.Warnings.Where(x => x.UserId == id).FirstOrDefault(x => x.Message == arg);
+
+            if (warning == null)
+            {
+                await ReplyAsync("User or warning reason not found");
+                return;
+            }
+
+            guild.Warnings.Remove(warning);
+
+            _service.Context.Guilds.Update(guild);
             await _service.Context.SaveChangesAsync();
         }
 
@@ -86,17 +183,39 @@ namespace Depot.Modules
         [Command("warns")]
         public async Task DisplayWarns(IUser duser)
         {
-            GuildUser? user = _service.Context.GuildUsers.FirstOrDefault(x => x.UserId == duser.Id);
-
-            if (user == null)
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
+            if (guild == null)
             {
-                await ReplyAsync("User not in database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
+                await ReplyAsync("Guild is not in the database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
                 return;
             }
 
+            List<Warning> warnings = guild.Warnings.Where(x => x.UserId == duser.Id).ToList();
             StringBuilder sb = new();
-            sb.AppendLine($"{duser} has warings {user.Warnings.Count}:");
-            foreach (var warning in user.Warnings)
+            sb.AppendLine($"{duser} has warings {warnings.Count}:");
+            foreach (var warning in warnings)
+            {
+                sb.AppendLine($"{warning.Timestamp}: {warning.Message}");
+            }
+
+            await ReplyAsync(sb.ToString());
+        }
+
+        [RequireUserPermission(GuildPermission.ManageMessages)]
+        [Command("warns")]
+        public async Task DisplayWarns(ulong id)
+        {
+            Guild? guild = _service.Context.GetGuild(Context.Guild);
+            if (guild == null)
+            {
+                await ReplyAsync("Guild is not in the database, please report to my mom or to https://github.com/anthonysSlab/depot/issues");
+                return;
+            }
+
+            List<Warning> warnings = guild.Warnings.Where(x => x.UserId == id).ToList();
+            StringBuilder sb = new();
+            sb.AppendLine($"{id} has {warnings.Count} warings:");
+            foreach (var warning in warnings)
             {
                 sb.AppendLine($"{warning.Timestamp}: {warning.Message}");
             }

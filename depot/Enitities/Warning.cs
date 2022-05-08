@@ -10,17 +10,17 @@
         {
         }
 
-        public Warning(GuildUser user, string message, DateTime timestap)
+        public Warning(ulong user, string message, DateTime timestap)
         {
-            User = user;
+            UserId = user;
             Message = message;
             Timestamp = timestap;
         }
 
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity), Key()]
         public virtual ulong Id { get; set; }
 
-        public virtual GuildUser User { get; set; }
+        public virtual ulong UserId { get; set; }
 
         public virtual string Message { get; set; } = string.Empty;
 
