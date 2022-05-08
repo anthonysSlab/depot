@@ -15,7 +15,7 @@ namespace Depot.Modules
             _service = service;
         }
 
-        [RequireUserPermission(GuildPermission.KickMembers)]
+        [RequireUserPermission(GuildPermission.BanMembers)]
         [Command("warn")]
         public async Task Wrn(IUser duser, string arg)
         {
@@ -60,7 +60,7 @@ namespace Depot.Modules
 
                 case 3:
                     {
-                        await guser.SetTimeOutAsync(TimeSpan.FromDays(7));
+                        await guser.KickAsync();
                     }
                     break;
 
