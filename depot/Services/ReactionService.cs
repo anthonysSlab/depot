@@ -88,7 +88,18 @@
             {
                 if (regex == null)
                 {
-                    regex = new Regex(Target, RegexOptions.Compiled);
+                    RegexOptions options = RegexOptions.Compiled;
+
+                    if (Target.Contains("/x"))
+                        options |= RegexOptions.Multiline;
+                    if (Target.Contains("/i"))
+                        options |= RegexOptions.IgnoreCase;
+                    if (Target.Contains("/s"))
+                        options |= RegexOptions.Singleline;
+                    if (Target.Contains("/m"))
+                        options |= RegexOptions.ExplicitCapture;
+
+                    regex = new Regex(Target.Replace("/x", string.Empty).Replace("/i", string.Empty).Replace("/s", string.Empty).Replace("/m", string.Empty), options);
                 }
                 return regex;
             }
