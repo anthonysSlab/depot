@@ -48,6 +48,7 @@ public class TextService
         if (arg.Author is not IGuildUser user) return;
         //if (user.GuildId != 817259966485889044) return;
         if (arg.Content.StartsWith('!')) return;
+        if (arg.Content.StartsWith('$')) return;
         var answer = _text.FirstOrDefault(x => arg.Content.Contains(x.Key, StringComparison.CurrentCultureIgnoreCase));
         if (answer.Value != null)
         {
