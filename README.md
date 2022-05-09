@@ -5,8 +5,7 @@ If any of ya have any funny ideas for auto replies, go ahead and edit the replie
 
 # Pot Team
 -Anthony slab (owner, developer)  
--Juna Meinhold (developer, the smart guy)  
--Mutant031101 (test object)  
+-Juna Meinhold (developer, the smart guy)   
 
 # Support
 If you like this bot and would want to see it develop, consider supporting me on patreon:  
