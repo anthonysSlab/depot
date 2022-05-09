@@ -17,7 +17,6 @@ namespace Depot.Contexts
         public ModerationContext()
         {
             Database.EnsureCreated();
-            Database.Migrate();
         }
 
         public bool AddOrGetGuild(IGuild dguild, out Guild guild)

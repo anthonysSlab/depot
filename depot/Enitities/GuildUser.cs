@@ -14,7 +14,6 @@
             LastActivity = lastActivity;
             HasActivityWarn = false;
             ActivityWarn = default;
-            Warnings = new();
         }
 
         public virtual User User { get; set; }
@@ -32,7 +31,5 @@
         public virtual bool HasActivityWarn { get; set; }
 
         public virtual DateTime ActivityWarn { get; set; }
-
-        public virtual List<Warning> Warnings { get; set; }
     }
 }
