@@ -16,7 +16,6 @@
         private readonly InteractionService interactionService;
         private readonly CommandService cmdService;
         private IServiceProvider? services;
-        private readonly TextService textService;
         private readonly LogService logService;
         private readonly ReactionService reactionService;
         private readonly ConfigService configService;
@@ -47,7 +46,6 @@
 
             logService = new(client);
             configService = new();
-            textService = new(client);
             reactionService = new(client);
             config = configService.GetConfig();
 
@@ -90,7 +88,6 @@
                     .AddSingleton(cmdService)
                     .AddSingleton(interactionService)
                     .AddSingleton(logService)
-                    .AddSingleton(textService)
                     .AddSingleton(reactionService)
                     .AddSingleton<ModerationService>()
                     .BuildServiceProvider();

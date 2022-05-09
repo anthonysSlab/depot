@@ -16,7 +16,6 @@ namespace Depot.Contexts
 
         public ModerationContext()
         {
-            Database.EnsureCreated();
             Database.Migrate();
         }
 
