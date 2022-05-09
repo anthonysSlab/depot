@@ -21,29 +21,9 @@ public class TextService
 
     private async Task MessageReceived(SocketMessage arg)
     {
-        static string Ragge(string arg)
-        {
-            if (arg == null) return "no";
-            arg = arg.Replace("'", "");
-            Regex regex = new(@"^Im (.*)$", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled); //additional words return no FIIIIIIX
-            Match match = regex.Match(arg);
-
-            if (match.Success)
-            {
-                string name = match.Groups[1].Value;
-                string output = $"hello {name}, I'm pot";
-                return output;
-            }
-            return "no";
-        }
-
         if (arg.Author.Id == 159985870458322944) { await arg.Channel.SendMessageAsync("FUCK YE BOT!"); return; };
         if (arg.Author.Id == 962301614172041237) return;
-        if (Ragge(arg.CleanContent) != "no")
-        {
-            await arg.Channel.SendMessageAsync(Ragge(arg.CleanContent));
-            return;
-        }
+
         if (arg.Author.IsBot) return;
         if (arg.Author is not IGuildUser user) return;
         //if (user.GuildId != 817259966485889044) return;
