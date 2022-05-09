@@ -37,7 +37,8 @@ after a successful roll the bot will return all of the rolls and the total
 - 1st warn - timeout 10min  
 - 2nd warn - timeout 1h  
 - 3rd warn - kick from the guild    
-- 4th warn - ban from the guild     
+- 4th warn - ban from the guild    
+ 
 (requires the KickMembers Guild permission)  
 
 !warns [memberId]: displays all of the warns that the user has with the exact date of their creation and reason (requires the ViewAuditLog Guild permission)  
