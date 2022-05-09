@@ -82,7 +82,7 @@ namespace Depot.Modules
             await _service.Context.SaveChangesAsync();
         }
 
-        [RequireUserPermission(GuildPermission.ManageMessages)]
+        [RequireUserPermission(GuildPermission.ViewAuditLog)]
         [Command("warns")]
         public async Task DisplayWarns(IUser duser)
         {
