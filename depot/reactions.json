@@ -1,7 +1,7 @@
 {
   "Reactions": [
     {
-      "Target": "<@962301614172041237>",
+      "Target": "962301614172041237",
       "Replies": [
         "owo what's dis?!",
         "I have been summoned"
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "Target": "confiden",
+      "Target": "^confident|confidence$/i",
       "Replies": [
         "remind yourself the overconfidence is a slow and insidious killer"
       ]
@@ -59,31 +59,31 @@
       ]
     },
     {
-      "Target": "pain",
+      "Target": "^pain$/i",
       "Replies": [
         "This is only the beginning :3"
       ]
     },
     {
-      "Target": "uwu",
+      "Target": "^uwu$/i",
       "Replies": [
         "owo"
       ]
     },
     {
-      "Target": "owo",
+      "Target": "^owo$/i",
       "Replies": [
         "uwu"
       ]
     },
     {
-      "Target": "puzzle",
+      "Target": "^puzzle|puzzles|puzzled$",
       "Replies": [
         "*pummles you with a rubix cube*"
       ]
     },
     {
-      "Target": "^pot$",
+      "Target": "^pot|depot$/i",
       "Replies": [
         "oy!",
         "hello",
@@ -91,7 +91,7 @@
         "hey",
         "hai",
         "hoi",
-        "that's meee!"
+        "that's meee!",
         "owo",
         "hewwo"
       ]
@@ -141,7 +141,7 @@
       "Replies": [
         ""
       ]
-    }
+    }*/
 
-  ]*/
+  ]
 }
