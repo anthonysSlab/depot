@@ -24,16 +24,16 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish Win
-      run: dotnet publish ./depot/depot/ -c Release -a x64 --os win --self-contained -p:PublishReadyToRun=true
+      run: dotnet publish /home/runner/work/depot/depot/ -c Release -a x64 --os win --self-contained -p:PublishReadyToRun=true
     - name: Publish Linux
-      run: dotnet publish ./depot/depot/ -c Release -a x64 --os linux --self-contained -p:PublishReadyToRun=true
+      run: dotnet publish /home/runner/work/depot/depot/ -c Release -a x64 --os linux --self-contained -p:PublishReadyToRun=true
     - name: Upload Bot Win Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: Bot Win
-        path: ./depod/depod/bin/Release/net6.0/win-x64/publish/
+        path: /home/runner/work/depot/depot/bin/Release/net6.0/win-x64/publish/
     - name: Upload Bot Linux Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: Bot Linux
-        path: ./depod/depod/bin/Release/net6.0/linux-x64/publish/
+        path: /home/runner/work/depot/depot/bin/Release/net6.0/linux-x64/publish/
