@@ -2,9 +2,13 @@
 {
     public class GuildUser
     {
+#nullable disable
+
         public GuildUser()
         {
         }
+
+#nullable enable
 
         public GuildUser(User user, Guild guild, DateTime lastActivity)
         {

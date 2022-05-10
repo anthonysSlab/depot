@@ -6,6 +6,7 @@ namespace Depot.Contexts
 {
     public class ModerationContext : DbContext
     {
+#nullable disable
         public DbSet<Guild> Guilds { get; set; }
 
         public DbSet<Role> Roles { get; set; }
@@ -13,6 +14,7 @@ namespace Depot.Contexts
         public DbSet<User> Users { get; set; }
 
         public DbSet<GuildUser> GuildUsers { get; set; }
+#nullable enable
 
         public ModerationContext()
         {

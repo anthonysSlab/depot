@@ -6,9 +6,13 @@
 
     public class Warning
     {
+#nullable disable
+
         public Warning()
         {
         }
+
+#nullable enable
 
         public Warning(GuildUser user, string message, DateTime timestap)
         {

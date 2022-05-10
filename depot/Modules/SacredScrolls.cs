@@ -86,17 +86,8 @@
             guild.IgnoredRoles.Add(role);
             _service.Context.Roles.Add(role);
             _service.Context.Guilds.Update(guild);
-            try
-            {
-                await _service.Context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                await ReplyAsync(ex.Message);
-#endif
-            }
 
+            await _service.Context.SaveChangesAsync();
             await ReplyAsync($"role {drole.Mention} added, hope ye happy now");
         }
 
@@ -130,17 +121,8 @@
             guild.IgnoredRoles.Remove(role);
             _service.Context.Roles.Remove(role);
             _service.Context.Guilds.Update(guild);
-            try
-            {
-                await _service.Context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                await ReplyAsync(ex.Message);
-#endif
-            }
 
+            await _service.Context.SaveChangesAsync();
             await ReplyAsync($"role {drole.Mention} removed, hope ye happy now");
         }
 

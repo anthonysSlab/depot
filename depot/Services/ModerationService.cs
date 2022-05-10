@@ -24,21 +24,11 @@
             _client.LeftGuild += LeftGuild;
             _client.UserJoined += UserJoined;
             _client.UserLeft += UserLeft;
-            _client.RoleCreated += RoleCreated;
-            _client.RoleDeleted += RoleDeleted;
 
             scheduledTask = new(DoTasks);
             scheduledTask.AddTrigger(new TimeIntervalTrigger(TimeSpan.FromMinutes(5)));
             scheduledTask.Start();
             DoTasks().Wait();
-        }
-
-        private async Task RoleDeleted(SocketRole arg)
-        {
-        }
-
-        private async Task RoleCreated(SocketRole arg)
-        {
         }
 
         private async Task UserLeft(SocketGuild arg1, SocketUser arg2)
