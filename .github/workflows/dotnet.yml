@@ -28,12 +28,12 @@ jobs:
     - name: Publish Linux
       run: dotnet publish /home/runner/work/depot/depot/ -c Release -a x64 --os linux --self-contained -p:PublishReadyToRun=true
     - name: Upload Bot Win Build Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Bot Win
         path: /home/runner/work/depot/depot/bin/Release/net6.0/win-x64/publish/
     - name: Upload Bot Linux Build Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Bot Linux
         path: /home/runner/work/depot/depot/bin/Release/net6.0/linux-x64/publish/
