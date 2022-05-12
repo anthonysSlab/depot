@@ -1,0 +1,147 @@
+{
+  "Reactions": [
+    {
+      "Target": "962301614172041237",
+      "Replies": [
+        "owo what's dis?!",
+        "I have been summoned"
+      ]
+    },
+    {
+      "Target": "^69$",
+      "Replies": [
+        "nice",
+        "hehe funni number"
+      ]
+    },
+    {
+      "Target": "^america$/i",
+      "Replies": [
+        "Fuck yeah!"
+      ]
+    },
+    {
+      "Target": "^confident|confidence$/i",
+      "Replies": [
+        "remind yourself the overconfidence is a slow and insidious killer"
+      ]
+    },
+    {
+      "Target": "^dice$/i",
+      "Replies": [
+        "click clacks!",
+        "math rocks!",
+        "algebraic polyhedrons"
+      ]
+    },
+    {
+      "Target": "^die|kill$/i",
+      "Replies": [
+        "Executed with impunity!"
+      ]
+    },
+    {
+      "Target": "^help$/i",
+      "Replies": [
+        "You won't get help where we're going!"
+      ]
+    },
+    {
+      "Target": "^jan|mutant$/i",
+      "Replies": [
+        "Why are you talking about that perv?"
+      ]
+    },
+    {
+      "Target": "191521298772525056",
+      "Replies": [
+        "Why are you talking about that perv?"
+      ]
+    },
+    {
+      "Target": "^pain$/i",
+      "Replies": [
+        "This is only the beginning :3"
+      ]
+    },
+    {
+      "Target": "^uwu$/i",
+      "Replies": [
+        "owo"
+      ]
+    },
+    {
+      "Target": "^owo$/i",
+      "Replies": [
+        "uwu"
+      ]
+    },
+    {
+      "Target": "^puzzle|puzzles|puzzled$",
+      "Replies": [
+        "*pummles you with a rubix cube*"
+      ]
+    },
+    {
+      "Target": "^pot|depot$/i",
+      "Replies": [
+        "oy!",
+        "hello",
+        "hi!",
+        "hey",
+        "hai",
+        "hoi",
+        "that's meee!",
+        "owo",
+        "hewwo"
+      ]
+    },
+    {
+      "Target": "404608545091354626",
+      "Replies": [
+        "How dare ya MERE MORTAL ping the Overlord, High Counselor, Archmage, God Emperor of Wizkind, sent to us as gift from the gods. I hereby curse ya with the power of burnt toast and warm pillows. You shall be banished to the WARCRIME PIT and spend there an ETERNITY in suffering."
+      ]
+    },
+    {
+      "Target": "^ban|banned|banhammer$/i",
+      "Replies": [
+        "I smell the banhammer!",
+        ":0, prepare the popcorn! someone's bout to get banned!",
+        "dramaaaaa!"
+      ]
+    },
+    {
+      "Target": "^oy|hello|hey|hi|hai|ello|welcome$/i",
+      "Replies": [
+        "oy!",
+        "hello",
+        "hi!",
+        "hey",
+        "hai",
+        "hoi",
+        "owo",
+        "how ye doin?",
+        "hewwo"
+      ]
+    } /*
+    {
+      "Target": "",
+      "Replies": [
+        ""
+      ]
+    },
+    {
+      "Target": "",
+      "Replies": [
+        ""
+      ]
+    },
+    {
+      "Target": "",
+      "Replies": [
+        ""
+      ]
+    }*/
+
+  ]
+}
