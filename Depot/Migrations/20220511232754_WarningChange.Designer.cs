@@ -3,6 +3,7 @@ using System;
 using Depot.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Depot.Migrations
 {
     [DbContext(typeof(ModerationContext))]
-    partial class ModerationContextModelSnapshot : ModelSnapshot
+    [Migration("20220511232754_WarningChange")]
+    partial class WarningChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
@@ -91,9 +93,17 @@ namespace Depot.Migrations
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<ulong?>("GuildUserGuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong?>("GuildUserUserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GuildId");
+
+                    b.HasIndex("GuildUserUserId", "GuildUserGuildId");
 
                     b.ToTable("Roles");
                 });
@@ -135,24 +145,6 @@ namespace Depot.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Warning");
-                });
-
-            modelBuilder.Entity("GuildUserRole", b =>
-                {
-                    b.Property<ulong>("RolesId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong>("UsersUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong>("UsersGuildId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("RolesId", "UsersUserId", "UsersGuildId");
-
-                    b.HasIndex("UsersUserId", "UsersGuildId");
-
-                    b.ToTable("GuildUserRole");
                 });
 
             modelBuilder.Entity("Depot.Enitities.GuildUser", b =>
@@ -197,6 +189,10 @@ namespace Depot.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Depot.Enitities.GuildUser", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("GuildUserUserId", "GuildUserGuildId");
+
                     b.Navigation("Guild");
                 });
 
@@ -219,21 +215,6 @@ namespace Depot.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GuildUserRole", b =>
-                {
-                    b.HasOne("Depot.Enitities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Depot.Enitities.GuildUser", null)
-                        .WithMany()
-                        .HasForeignKey("UsersUserId", "UsersGuildId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Depot.Enitities.Guild", b =>
                 {
                     b.Navigation("IgnoredRoles");
@@ -243,6 +224,11 @@ namespace Depot.Migrations
                     b.Navigation("Users");
 
                     b.Navigation("Warnings");
+                });
+
+            modelBuilder.Entity("Depot.Enitities.GuildUser", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("Depot.Enitities.User", b =>

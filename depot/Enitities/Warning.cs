@@ -8,23 +8,38 @@
     {
 #nullable disable
 
-        public Warning()
+        [Obsolete("EF ctor do not use")]
+        public Warning(ulong id, ulong userId, ulong guildId, string message, DateTime timestamp)
         {
+            Id = id;
+            UserId = userId;
+            GuildId = guildId;
+            Message = message;
+            Timestamp = timestamp;
         }
 
 #nullable enable
 
-        public Warning(GuildUser user, string message, DateTime timestap)
+        public Warning(User user, Guild guild, string message, DateTime timestap)
         {
             User = user;
+            UserId = user.Id;
+            Guild = guild;
+            GuildId = guild.Id;
             Message = message;
             Timestamp = timestap;
         }
 
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity), Key()]
         public virtual ulong Id { get; set; }
 
-        public virtual GuildUser User { get; set; }
+        public virtual ulong UserId { get; set; }
+
+        public virtual User User { get; set; }
+
+        public virtual ulong GuildId { get; set; }
+
+        public virtual Guild Guild { get; set; }
 
         public virtual string Message { get; set; } = string.Empty;
 

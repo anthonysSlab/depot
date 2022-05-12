@@ -18,7 +18,6 @@ namespace Depot.Contexts
 
         public ModerationContext()
         {
-            Database.Migrate();
         }
 
         public bool AddOrGetGuild(IGuild dguild, out Guild guild)
@@ -55,25 +54,6 @@ namespace Depot.Contexts
             }
 
             return user;
-        }
-
-        public bool AddOrGetRole(IRole drole, out Role role)
-        {
-            return AddOrGetRole(drole.Id, out role);
-        }
-
-        public bool AddOrGetRole(ulong roleid, out Role role)
-        {
-            Role? _role = GetRole(roleid);
-            if (_role == null)
-            {
-                role = new(roleid);
-                Roles.Add(role);
-                return true;
-            }
-
-            role = _role;
-            return false;
         }
 
         public Guild? GetGuild(IGuild guild)
