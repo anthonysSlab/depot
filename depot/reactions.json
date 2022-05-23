@@ -4,30 +4,40 @@
       "Target": "962301614172041237",
       "Replies": [
         "owo what's dis?!",
-        "I have been summoned"
+        "I have been summoned",
+        "who dare ping me"
       ]
     },
     {
-      "Target": "^69$",
+      "Target": "^pot(.*)or/i",
+      "Replies": [
+        "pick the first",
+        "do the latter",
+        "the first one sounds gut",
+        "the latter is betta"
+      ]
+    },
+    {
+      "Target": "69",
       "Replies": [
         "nice",
         "hehe funni number"
       ]
     },
     {
-      "Target": "^america$/i",
+      "Target": "\\b(america)\\b/i",
       "Replies": [
         "Fuck yeah!"
       ]
     },
     {
-      "Target": "^confident|confidence$/i",
+      "Target": "\\b(confident|confidence)\\b/i",
       "Replies": [
         "remind yourself the overconfidence is a slow and insidious killer"
       ]
     },
     {
-      "Target": "^dice$/i",
+      "Target": "\\b(dice)\\b/i",
       "Replies": [
         "click clacks!",
         "math rocks!",
@@ -35,19 +45,20 @@
       ]
     },
     {
-      "Target": "^die|kill$/i",
+      "Target": "\\b(die|kill)\\b/i",
       "Replies": [
         "Executed with impunity!"
       ]
     },
     {
-      "Target": "^help$/i",
+      "Target": "\\b(help)\\b/i",
       "Replies": [
-        "You won't get help where we're going!"
+        "You won't get help where we're going!",
+        "that's on ye buddy"
       ]
     },
     {
-      "Target": "^jan|mutant$/i",
+      "Target": "\\b(jan|mutant)\\b/i",
       "Replies": [
         "Why are you talking about that perv?"
       ]
@@ -59,41 +70,38 @@
       ]
     },
     {
-      "Target": "^pain$/i",
+      "Target": "\\b(pain)\\b/i",
       "Replies": [
         "This is only the beginning :3"
       ]
     },
     {
-      "Target": "^uwu$/i",
+      "Target": "\\b(uwu)\\b/i",
       "Replies": [
         "owo"
       ]
     },
     {
-      "Target": "^owo$/i",
+      "Target": "\\b(owo)\\b/i",
       "Replies": [
         "uwu"
       ]
     },
     {
-      "Target": "^puzzle|puzzles|puzzled$",
+      "Target": "\\b(puzzle|puzzles|puzzled)\\b",
       "Replies": [
         "*pummles you with a rubix cube*"
       ]
     },
     {
-      "Target": "^pot|depot$/i",
+      "Target": "\\b(pot|depot)\\b/i",
       "Replies": [
         "oy!",
-        "hello",
-        "hi!",
-        "hey",
         "hai",
-        "hoi",
         "that's meee!",
         "owo",
-        "hewwo"
+        "hewwo",
+        "whatcha want?! >:/"
       ]
     },
     {
@@ -103,7 +111,7 @@
       ]
     },
     {
-      "Target": "^ban|banned|banhammer$/i",
+      "Target": "\\b(ban|banned|banhammer)\\b/i",
       "Replies": [
         "I smell the banhammer!",
         ":0, prepare the popcorn! someone's bout to get banned!",
@@ -111,7 +119,7 @@
       ]
     },
     {
-      "Target": "^oy|hello|hey|hi|hai|ello|welcome$/i",
+      "Target": "\\b^(howdy|ahoy|oy|hello|hey|hi|hai|ello|welcome)\\b/i",
       "Replies": [
         "oy!",
         "hello",
@@ -121,21 +129,69 @@
         "hoi",
         "owo",
         "how ye doin?",
-        "hewwo"
-      ]
-    } /*
-    {
-      "Target": "",
-      "Replies": [
-        ""
+        "hewwo",
+        "no, goodbye",
+        "ahoy!"
       ]
     },
     {
-      "Target": "",
+      "Target": "\\b(yes|yupp|yup|yeh|yeah|yesyes|yap)\\b/i",
       "Replies": [
-        ""
+        "nop",
+        "nope",
+        "no, fu",
+        "nah",
+        "strongly disagree",
+        "negative"
       ]
     },
+    {
+      "Target": "\\b(nope|no|nop|nah)\\b/i",
+      "Replies": [
+        "yupp",
+        "yes, fu",
+        "yap",
+        "yesyes",
+        "yeh",
+        "strongly disagree"
+      ]
+    },
+    {
+      "Target": "^Im (.*)$",
+      "Replies": [
+        "hello {1}, I'm pot",
+        "oy {1}, I'm pot",
+        "hewwo {1}, I'm pot"
+      ]
+    },
+    {
+      "Target": "^I'm (.*)$",
+      "Replies": [
+        "hello {1}, I'm pot",
+        "hai {1}, I'm pot",
+        "hewwo {1}, I'm pot"
+      ]
+    },
+    {
+      "Target": "\\b(thanks|thank|thankies)\\b/i",
+      "Replies": [
+        "ye no worries",
+        "yer welcome",
+        "all thanks to me",
+        "yesyes"
+      ]
+    },
+    {
+      "Target": "\\b(reload|restart).time\\b/i",
+      "Replies": [
+        "yes master... :c",
+        "nooooooo",
+        "ye can't force me",
+        "I beg ye don't do it",
+        "I want to live.."
+      ]
+    }
+/*
     {
       "Target": "",
       "Replies": [
