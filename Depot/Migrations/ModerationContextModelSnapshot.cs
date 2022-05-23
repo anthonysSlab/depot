@@ -61,31 +61,39 @@ namespace Depot.Migrations
                     b.ToTable("GuildUsers");
                 });
 
-            modelBuilder.Entity("Depot.Enitities.Role", b =>
+            modelBuilder.Entity("Depot.Enitities.IgnoredRole", b =>
                 {
-                    b.Property<ulong>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<ulong?>("GuildId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<ulong?>("GuildId1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong?>("GuildUserGuildId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong?>("GuildUserUserId")
+                    b.Property<ulong>("RoleId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GuildId");
 
-                    b.HasIndex("GuildId1");
+                    b.HasIndex("RoleId");
 
-                    b.HasIndex("GuildUserUserId", "GuildUserGuildId");
+                    b.ToTable("IgnoredRole");
+                });
+
+            modelBuilder.Entity("Depot.Enitities.Role", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("GuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuildId");
 
                     b.ToTable("Roles");
                 });
@@ -107,7 +115,7 @@ namespace Depot.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<ulong?>("GuildId")
+                    b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Message")
@@ -117,9 +125,6 @@ namespace Depot.Migrations
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("TEXT");
 
-                    b.Property<ulong>("UserGuildId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<ulong>("UserId")
                         .HasColumnType("INTEGER");
 
@@ -127,9 +132,27 @@ namespace Depot.Migrations
 
                     b.HasIndex("GuildId");
 
-                    b.HasIndex("UserId", "UserGuildId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Warning");
+                });
+
+            modelBuilder.Entity("GuildUserRole", b =>
+                {
+                    b.Property<ulong>("RolesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("UsersUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("UsersGuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RolesId", "UsersUserId", "UsersGuildId");
+
+                    b.HasIndex("UsersUserId", "UsersGuildId");
+
+                    b.ToTable("GuildUserRole");
                 });
 
             modelBuilder.Entity("Depot.Enitities.GuildUser", b =>
@@ -151,34 +174,64 @@ namespace Depot.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Depot.Enitities.Role", b =>
+            modelBuilder.Entity("Depot.Enitities.IgnoredRole", b =>
                 {
                     b.HasOne("Depot.Enitities.Guild", null)
                         .WithMany("IgnoredRoles")
                         .HasForeignKey("GuildId");
 
-                    b.HasOne("Depot.Enitities.Guild", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("GuildId1");
+                    b.HasOne("Depot.Enitities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Depot.Enitities.GuildUser", null)
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Depot.Enitities.Role", b =>
+                {
+                    b.HasOne("Depot.Enitities.Guild", "Guild")
                         .WithMany("Roles")
-                        .HasForeignKey("GuildUserUserId", "GuildUserGuildId");
+                        .HasForeignKey("GuildId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Guild");
                 });
 
             modelBuilder.Entity("Depot.Enitities.Warning", b =>
                 {
-                    b.HasOne("Depot.Enitities.Guild", null)
+                    b.HasOne("Depot.Enitities.Guild", "Guild")
                         .WithMany("Warnings")
-                        .HasForeignKey("GuildId");
-
-                    b.HasOne("Depot.Enitities.GuildUser", "User")
-                        .WithMany("Warnings")
-                        .HasForeignKey("UserId", "UserGuildId")
+                        .HasForeignKey("GuildId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Depot.Enitities.User", "User")
+                        .WithMany("Warnings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Guild");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GuildUserRole", b =>
+                {
+                    b.HasOne("Depot.Enitities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Depot.Enitities.GuildUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersUserId", "UsersGuildId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Depot.Enitities.Guild", b =>
@@ -192,16 +245,11 @@ namespace Depot.Migrations
                     b.Navigation("Warnings");
                 });
 
-            modelBuilder.Entity("Depot.Enitities.GuildUser", b =>
-                {
-                    b.Navigation("Roles");
-
-                    b.Navigation("Warnings");
-                });
-
             modelBuilder.Entity("Depot.Enitities.User", b =>
                 {
                     b.Navigation("Guilds");
+
+                    b.Navigation("Warnings");
                 });
 #pragma warning restore 612, 618
         }

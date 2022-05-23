@@ -2,9 +2,22 @@
 {
     public class GuildUser
     {
-        public GuildUser()
+#nullable disable
+
+        [Obsolete("EF ctor do not use")]
+        public GuildUser(ulong userId, ulong guildId, DateTime lastActivity, bool hasActivityWarn, DateTime activityWarn)
         {
+            User = null;
+            UserId = userId;
+            Guild = null;
+            GuildId = guildId;
+            Roles = null;
+            LastActivity = lastActivity;
+            HasActivityWarn = hasActivityWarn;
+            ActivityWarn = activityWarn;
         }
+
+#nullable enable
 
         public GuildUser(User user, Guild guild, DateTime lastActivity)
         {
@@ -14,7 +27,6 @@
             LastActivity = lastActivity;
             HasActivityWarn = false;
             ActivityWarn = default;
-            Warnings = new();
         }
 
         public virtual User User { get; set; }
@@ -32,7 +44,5 @@
         public virtual bool HasActivityWarn { get; set; }
 
         public virtual DateTime ActivityWarn { get; set; }
-
-        public virtual List<Warning> Warnings { get; set; }
     }
 }

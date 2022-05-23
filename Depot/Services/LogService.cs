@@ -8,7 +8,7 @@ public class LogService
     private readonly SemaphoreSlim _semaphoreSlim;
     private readonly FileStream _fileStream;
     private readonly StreamWriter _writer;
-    private DiscordSocketClient client;
+    private readonly DiscordSocketClient client;
 
     public LogService(DiscordSocketClient client)
     {

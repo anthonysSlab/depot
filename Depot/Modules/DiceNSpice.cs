@@ -23,13 +23,13 @@ namespace Depot.Modules
             int index = Array.IndexOf(allowedDice, value);
             if (!int.TryParse(args[0], out int hownamydices)) return; if (!int.TryParse(args[1], out int sides)) return; //turn to int
             int thegreatnum = 0;
-            Random rand = new Random(); //random function
-            sides = sides + 1;
+            Random rand = new(); //random function
+            sides++;
             if (index > -1) //only accept 2,4,6,8,10,12,100 as sides
             {
                 if (hownamydices <= 15) //prevent more than 10 dice to be rolled at a time
                 {
-                    StringBuilder sb = new StringBuilder();
+                    StringBuilder sb = new();
                     for (int i = 0; i < hownamydices; i++)
                     {
                         int derandomnumba = rand.Next(1, sides);

@@ -11,6 +11,9 @@ If any of ya have any funny ideas for auto replies, go ahead and edit the replie
 If you like this bot and would want to see it develop, consider supporting me on patreon:  
 https://www.patreon.com/anthonyslab?fan_landing=true  
 
+# Build Requirements
+.NET 6.0 SDK and Visual Studio 2022
+
 # Features
 Auto-Replies: the pot will reply with a set string to a message in chat that contains another set string;  
 All of the replies are contained in the replies.json file  

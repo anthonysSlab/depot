@@ -75,28 +75,18 @@
                 return;
             }
 
-            Role role = new() { Id = drole.Id };
+            Role role = guild.Roles.First(x => x.Id == drole.Id);
 
-            if (guild.IgnoredRoles.Any(r => r.Id == role.Id))
+            if (guild.IgnoredRoles.Any(r => r.RoleId == role.Id))
             {
                 await ReplyAsync("they already immune, leave em alone!");
                 return;
             }
 
             guild.IgnoredRoles.Add(role);
-            _service.Context.Roles.Add(role);
             _service.Context.Guilds.Update(guild);
-            try
-            {
-                await _service.Context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                await ReplyAsync(ex.Message);
-#endif
-            }
 
+            await _service.Context.SaveChangesAsync();
             await ReplyAsync($"role {drole.Mention} added, hope ye happy now");
         }
 
@@ -119,7 +109,7 @@
                 return;
             }
 
-            Role? role = guild.IgnoredRoles.FirstOrDefault(x => x.Id == drole.Id);
+            IgnoredRole? role = guild.IgnoredRoles.FirstOrDefault(x => x.RoleId == drole.Id);
 
             if (role == null)
             {
@@ -128,19 +118,9 @@
             }
 
             guild.IgnoredRoles.Remove(role);
-            _service.Context.Roles.Remove(role);
             _service.Context.Guilds.Update(guild);
-            try
-            {
-                await _service.Context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                await ReplyAsync(ex.Message);
-#endif
-            }
 
+            await _service.Context.SaveChangesAsync();
             await ReplyAsync($"role {drole.Mention} removed, hope ye happy now");
         }
 
@@ -217,7 +197,7 @@
             sb.AppendLine("ignored roles:");
             foreach (var role in guild.IgnoredRoles)
             {
-                sb.AppendLine(Context.Guild.GetRole(role.Id).Name);
+                sb.AppendLine(Context.Guild.GetRole(role.RoleId).Name);
             }
             sb.AppendLine("tracked users:");
             foreach (var user in guild.Users)
