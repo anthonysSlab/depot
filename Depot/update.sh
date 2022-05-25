@@ -11,4 +11,4 @@ rm ./update.sh 2>&1 > output.log
 
 echo 0 > UPDATED
 
-exec ./GodOfUwU
+exec ./Depot
