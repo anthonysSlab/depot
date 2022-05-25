@@ -10,4 +10,4 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 
 echo 0 > UPDATED
 
-start .\GodOfUwU.exe
+start .\Depot.exe
