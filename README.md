@@ -67,5 +67,4 @@ after a successful roll the bot will return all of the rolls and the total
 
 # TODO List
 -add more auto replies  
--make the bot update itself automatically  
--fix sacred scrolls  
+
