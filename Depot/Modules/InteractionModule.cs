@@ -26,7 +26,7 @@
 
             StringBuilder sb = new();
             sb.AppendLine($"currently running version {Assembly.GetExecutingAssembly().GetName().Version}");
-            sb.AppendLine("created by Juna");
+            sb.AppendLine("created by Juna (slab helped too :c)");
             builder.AddField(new EmbedFieldBuilder()
             {
                 Name = "About",

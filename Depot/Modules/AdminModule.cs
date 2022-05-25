@@ -18,7 +18,7 @@
             this.updateService = updateService;
         }
 
-        [Command("checkupdates")]
+        [Command("any news")]
         public async Task CheckUpdates()
         {
             if (Context.User.Id != 308203742736678914 && Context.User.Id != 627015977233678336) return;
