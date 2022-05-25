@@ -20,6 +20,7 @@
         private readonly ReactionService reactionService;
         private readonly ConfigService configService;
         private readonly Config config;
+        private UpdateService updateService;
 
         public DePotClient()
         {
@@ -45,6 +46,7 @@
             });
 
             logService = new(client);
+            updateService = new(client);
             configService = new();
             reactionService = new(client);
             config = configService.GetConfig();
@@ -85,6 +87,7 @@
         private IServiceProvider SetupServices()
             => new ServiceCollection()
                     .AddSingleton(client)
+                    .AddSingleton(updateService)
                     .AddSingleton(cmdService)
                     .AddSingleton(interactionService)
                     .AddSingleton(logService)
