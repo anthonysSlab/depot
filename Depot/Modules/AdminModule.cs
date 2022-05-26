@@ -57,13 +57,5 @@
             updateService.TestUpdateScript(Context.Channel.Id);
             return Task.CompletedTask;
         }
-
-        [Command("restart")]
-        public async Task RestartBot()
-        {
-            if (Context.User.Id != 308203742736678914 && Context.User.Id != 627015977233678336) return;
-            await ReplyAsync("Restarting...");
-            updateService.Restart();
-        }
     }
 }
