@@ -16,6 +16,7 @@
         private const string Owner = "anthonysSlab";
         private const string Name = "depot";
         private readonly DiscordSocketClient client;
+        private bool initialized;
 
         public UpdateService(DiscordSocketClient client)
         {
@@ -25,6 +26,8 @@
 
         private async Task Ready()
         {
+            if (initialized) return;
+            initialized = true;
             if (!File.Exists("UPDATED"))
             {
                 return;

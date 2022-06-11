@@ -21,6 +21,7 @@
         private readonly ConfigService configService;
         private readonly Config config;
         private UpdateService updateService;
+        private bool initialized;
 
         public DePotClient()
         {
@@ -58,6 +59,7 @@
         public async Task InitializeAsync()
         {
             services = SetupServices();
+
             client.Log += LogAsync;
             client.Ready += Ready;
 
@@ -69,6 +71,8 @@
 
         private async Task Ready()
         {
+            if (initialized) return;
+            initialized = true;
 #pragma warning disable CS8604 // Possible null reference argument.
             var cmdHandler = new CommandHandler(client, cmdService, services);
 #pragma warning restore CS8604 // Possible null reference argument.

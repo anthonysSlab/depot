@@ -14,6 +14,7 @@
         private readonly LogService log;
         private readonly ModerationContext context;
         private readonly ScheduledTask scheduledTask;
+        private bool initialized;
 
         public ModerationService(DiscordSocketClient client, LogService log)
         {
@@ -39,6 +40,8 @@
 
         private async Task Ready()
         {
+            if (initialized) return;
+            initialized = true;
             Task task = DoTasks();
             await task;
             if (task.IsFaulted)
